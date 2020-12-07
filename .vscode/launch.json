@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ECommerceApplication<eCommerce>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.tts.eCommerce.ECommerceApplication",
+            "projectName": "eCommerce",
+            "args": ""
+        }
+    ]
+}
