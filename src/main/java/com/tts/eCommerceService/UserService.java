@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.tts.eCommerceModel.DetailsUser;
 import com.tts.eCommerceModel.Product;
 import com.tts.eCommerceModel.User;
 import com.tts.eCommerceRepository.UserRepository;
@@ -43,10 +45,10 @@ public class UserService implements UserDetailsService {
         saveExisting(user);
     }
 
-    @Override
+    @Override	
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username);
         if(user == null) throw new UsernameNotFoundException("Username not found.");
-        return user;
+        return new DetailsUser(user);
     }
 }
