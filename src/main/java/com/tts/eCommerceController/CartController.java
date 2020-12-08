@@ -39,6 +39,7 @@ public class CartController {
       if(user == null) return null;
       System.out.println("Getting cart");
       return user.getCart();
+  }
       
       @ModelAttribute("list")
       public List<Double> list() {
