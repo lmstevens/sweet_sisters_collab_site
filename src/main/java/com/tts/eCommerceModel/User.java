@@ -1,20 +1,19 @@
 package com.tts.eCommerceModel;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -24,9 +23,6 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
-
-
 
 @Entity
 public class User {
@@ -59,69 +55,89 @@ public class User {
     
     private int active;
     
-    @CreationTimestamp 
+	@CreationTimestamp 
 	private Date createdAt;
-    
-   
-    
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_follower", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "follower_id"))
-    private List<User> followers;
-    
-    @ManyToMany(mappedBy="followers")
-	private List<User> following;
- 
-    public Long getId() {
-        return id;
-        }
-        public String getEmail() {
-        return email;
-        }
-        public void setEmail(String email) {
-        this.email = email;
-        }
-        public String getUsername() {
-        return username;
-        }
-        public void setUsername(String username) {
-        this.username = username;
-        }
-        public String getPassword() {
-        return password;
-        }
-        public void setPassword(String password) {
-        this.password = password;
-        }
-        public String getFirstName() {
-        return firstName;
-        }
-        public void setFirstName(String firstName) {
-        this.firstName = firstName;
-        }
-        public String getLastName() {
-        return lastName;
-        }
-        public void setLastName(String lastName) {
-        this.lastName = lastName;
-        }
-        public int getActive() {
-        return active;
-        }
-        public void setActive(int active) {
-        this.active = active;
-        }
-        public Date getCreatedAt() {
-        return createdAt;
-        }
-        public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        }
-        
-        public void setCart(Map<Product, Integer> cart) {
-			
-			
-		}
+	
+	@ElementCollection
+	private HashMap<Product, Integer> cart = new HashMap<Product, Integer>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public HashMap<Product, Integer> getCart() {
+		return cart;
+	}
+
+	public void setCart(Map<Product, Integer> cart2) {
+		this.cart = (HashMap<Product, Integer>) cart2;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", active=" + active + ", createdAt="
+				+ createdAt + ", cart=" + cart + "]";
+	}
 		
-
-
 }
